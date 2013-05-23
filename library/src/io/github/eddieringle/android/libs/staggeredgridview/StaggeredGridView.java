@@ -209,11 +209,6 @@ public class StaggeredGridView extends AdapterView<ListAdapter> {
      * The current position of the selector in the list.
      */
     int mSelectorPosition = INVALID_POSITION;
-    
-    /**
-     * The listener that receives notifications when an item is clicked.
-     */
-    OnItemClickListener mOnItemClickListener;
 
     /**
      * The listener that receives notifications when an item is long clicked.
@@ -2349,19 +2344,6 @@ public class StaggeredGridView extends AdapterView<ListAdapter> {
                 }
             }
         }
-    }
-    
-    public boolean performItemClick(View view, int position, long id) {
-        if (mOnItemClickListener != null) {
-            playSoundEffect(SoundEffectConstants.CLICK);
-            if (view != null) {
-                view.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);
-            }
-            mOnItemClickListener.onItemClick(this, view, position, id);
-            return true;
-        }
-
-        return false;
     }
     
     boolean performLongPress(final View child,
