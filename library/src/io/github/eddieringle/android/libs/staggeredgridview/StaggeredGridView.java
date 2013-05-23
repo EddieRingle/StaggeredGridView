@@ -1,4 +1,4 @@
-package io.github.eddieringle.android.libs.views;
+package io.github.eddieringle.android.libs.staggeredgridview;
 
 /*
  * Copyright (C) 2012 The Android Open Source Project
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import android.widget.AdapterView;
-import com.origamilabs.library.R;
+import io.github.eddieringle.android.libs.staggeredgridview.R;
 
 import android.annotation.TargetApi;
 import android.content.Context;

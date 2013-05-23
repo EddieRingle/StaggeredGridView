@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 
-import io.github.eddieringle.android.libs.views.StaggeredGridView;
+import io.github.eddieringle.android.libs.staggeredgridview.StaggeredGridView;
 
 /**
  * 

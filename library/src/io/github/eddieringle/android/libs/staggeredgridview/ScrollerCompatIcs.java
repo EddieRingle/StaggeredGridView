@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.eddieringle.android.libs.views;
+package io.github.eddieringle.android.libs.staggeredgridview;
 
 import android.annotation.TargetApi;
 import android.os.Build;

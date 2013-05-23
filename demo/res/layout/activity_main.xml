@@ -6,7 +6,7 @@
     android:background="@color/black"
     tools:context=".MainActivity" >
 
-    <io.github.eddieringle.android.libs.views.StaggeredGridView
+    <io.github.eddieringle.android.libs.staggeredgridview.StaggeredGridView
         android:id="@+id/staggeredGridView1"
         staggered:numColumns="2"
         staggered:drawSelectorOnTop="true"

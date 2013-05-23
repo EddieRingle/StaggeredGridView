@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import com.example.staggeredgridviewdemo.loader.ImageLoader;
 import com.example.staggeredgridviewdemo.views.ScaleImageView;
-import io.github.eddieringle.android.libs.views.StaggeredGridView;
+import io.github.eddieringle.android.libs.staggeredgridview.StaggeredGridView;
 
 public class StaggeredAdapter extends ArrayAdapter<String> implements ListAdapter {
 
