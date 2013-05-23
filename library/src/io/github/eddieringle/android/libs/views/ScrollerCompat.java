@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.origamilabs.library.views;
+package io.github.eddieringle.android.libs.views;
 
 import android.content.Context;
 import android.widget.Scroller;

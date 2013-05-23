@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 
-import com.origamilabs.library.views.StaggeredGridView;
+import io.github.eddieringle.android.libs.views.StaggeredGridView;
 
 /**
  * 
@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
 		
 		gridView.setItemMargin(margin); // set the GridView margin
 		
-		gridView.setPadding(margin, 0, margin, 0); // have the margin on the sides as well 
+		gridView.setPadding(margin, 0, margin, 0); // have the margin on the sides as well
 		
 		StaggeredAdapter adapter = new StaggeredAdapter(MainActivity.this, R.id.imageView1, urls);
 		
