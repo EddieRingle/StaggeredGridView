@@ -1,16 +1,15 @@
 package com.example.staggeredgridviewdemo;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 
 import android.widget.ListAdapter;
 import com.example.staggeredgridviewdemo.loader.ImageLoader;
 import com.example.staggeredgridviewdemo.views.ScaleImageView;
+import io.github.eddieringle.android.libs.views.StaggeredGridView;
 
 public class StaggeredAdapter extends ArrayAdapter<String> implements ListAdapter {
 
@@ -37,6 +36,17 @@ public class StaggeredAdapter extends ArrayAdapter<String> implements ListAdapte
 		}
 
 		holder = (ViewHolder) convertView.getTag();
+
+		StaggeredGridView.LayoutParams lp = (StaggeredGridView.LayoutParams) convertView.getLayoutParams();
+		if (lp == null) {
+			lp = new StaggeredGridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT);
+		}
+		if(position == 2) {
+			lp.span = 2;
+		} else {
+			lp.span = 1;
+		}
+		convertView.setLayoutParams(lp);
 
 		mLoader.DisplayImage(getItem(position), holder.imageView);
 
