@@ -2,6 +2,8 @@ package com.origamilabs.library.views;
 
 /*
  * Copyright (C) 2012 The Android Open Source Project
+ * Copyright (C) 2012 Maurycy Wojtowicz
+ * Copyright (C) 2013 Eddie Ringle
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +17,12 @@ package com.origamilabs.library.views;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * modified by Maurycy Wojtowicz
- * 
  */
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import android.widget.AdapterView;
 import com.origamilabs.library.R;
 
 import android.annotation.TargetApi;
@@ -68,7 +69,7 @@ import android.widget.ListAdapter;
  * The attribute <code>android:layout_span</code> may be used when inflating
  * item views from xml.</p>
  */
-public class StaggeredGridView extends ViewGroup {
+public class StaggeredGridView extends AdapterView<ListAdapter> {
     private static final String TAG = "StaggeredGridView";
 
     /*
@@ -708,7 +709,7 @@ public class StaggeredGridView extends ViewGroup {
         if (mInLayout) {
             removeAllViewsInLayout();
         } else {
-            removeAllViews();
+            removeAllViewsInLayout();
         }
     }
 
@@ -732,7 +733,7 @@ public class StaggeredGridView extends ViewGroup {
             if (mInLayout) {
                 removeViewsInLayout(i, 1);
             } else {
-                removeViewAt(i);
+                removeViewInLayout(child);
             }
 
             mRecycler.addScrap(child);
@@ -749,7 +750,7 @@ public class StaggeredGridView extends ViewGroup {
             if (mInLayout) {
                 removeViewsInLayout(0, 1);
             } else {
-                removeViewAt(0);
+                removeViewInLayout(child);
             }
 
             mRecycler.addScrap(child);
@@ -955,7 +956,7 @@ public class StaggeredGridView extends ViewGroup {
             if (mInLayout) {
                 removeAllViewsInLayout();
             } else {
-                removeAllViews();
+                removeAllViewsInLayout();
             }
         }
 
@@ -1199,7 +1200,7 @@ public class StaggeredGridView extends ViewGroup {
                 if (mInLayout) {
                     addViewInLayout(child, 0, lp);
                 } else {
-                    addView(child, 0);
+                    addViewInLayout(child, 0, lp);
                 }
             }
 
@@ -1371,7 +1372,7 @@ public class StaggeredGridView extends ViewGroup {
                 if (mInLayout) {
                     addViewInLayout(child, -1, lp);
                 } else {
-                    addView(child);
+                    addViewInLayout(child, -1, lp);
                 }
             }
 
@@ -1702,7 +1703,7 @@ public class StaggeredGridView extends ViewGroup {
     private void clearAllState() {
         // Clear all layout records and views
         mLayoutRecords.clear();
-        removeAllViews();
+        removeAllViewsInLayout();
 
         // Reset to the top of the grid
         resetStateForGridTop();
@@ -1740,7 +1741,7 @@ public class StaggeredGridView extends ViewGroup {
     public void setSelectionToTop() {
         // Clear out the views (but don't clear out the layout records or recycler because the data
         // has not changed)
-        removeAllViews();
+        removeAllViewsInLayout();
 
         // Reset to top of grid
         resetStateForGridTop();
@@ -2198,12 +2199,22 @@ public class StaggeredGridView extends ViewGroup {
          */
         public void adjustListItemSelectionBounds(Rect bounds);
     }
-    
-    private int getSelectedItemPosition(){
+
+    public int getSelectedItemPosition(){
     	// TODO: setup mNextSelectedPosition
     	return this.mSelectorPosition;
     }
-    
+
+    @Override
+    public View getSelectedView() {
+        throw new UnsupportedOperationException("Unsupported");
+    }
+
+    @Override
+    public void setSelection(int position) {
+        throw new UnsupportedOperationException("Unsupported");
+    }
+
     @Override
     protected int[] onCreateDrawableState(int extraSpace) {
         // If the child view is enabled then do the default behavior.
@@ -2519,81 +2530,6 @@ public class StaggeredGridView extends ViewGroup {
         default:
             return false;
         }
-    }
-    
-    /**
-     * Register a callback to be invoked when an item in this AdapterView has
-     * been clicked.
-     *
-     * @param listener The callback that will be invoked.
-     */
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        mOnItemClickListener = listener;
-    }
-
-    /**
-     * @return The callback to be invoked with an item in this AdapterView has
-     *         been clicked, or null id no callback has been set.
-     */
-    public final OnItemClickListener getOnItemClickListener() {
-        return mOnItemClickListener;
-    }
-    
-    public interface OnItemClickListener {
-
-        /**
-         * Callback method to be invoked when an item in this AdapterView has
-         * been clicked.
-         * <p>
-         * Implementers can call getItemAtPosition(position) if they need
-         * to access the data associated with the selected item.
-         *
-         * @param parent The AdapterView where the click happened.
-         * @param view The view within the AdapterView that was clicked (this
-         *            will be a view provided by the adapter)
-         * @param position The position of the view in the adapter.
-         * @param id The row id of the item that was clicked.
-         */
-        void onItemClick(StaggeredGridView parent, View view, int position, long id);
-    }
-    
-    /**
-     * Register a callback to be invoked when an item in this AdapterView has
-     * been clicked and held
-     *
-     * @param listener The callback that will run
-     */
-    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
-        if (!isLongClickable()) {
-            setLongClickable(true);
-        } 
-        mOnItemLongClickListener = listener;
-    }
-
-    /**
-     * @return The callback to be invoked with an item in this AdapterView has
-     *         been clicked and held, or null id no callback as been set.
-     */
-    public final OnItemLongClickListener getOnItemLongClickListener() {
-        return mOnItemLongClickListener;
-    }
-    
-    public interface OnItemLongClickListener {
-        /**
-         * Callback method to be invoked when an item in this view has been
-         * clicked and held.
-         *
-         * Implementers can call getItemAtPosition(position) if they need to access
-         * the data associated with the selected item.
-         *
-         * @param parent The AbsListView where the click happened
-         * @param view The view within the AbsListView that was clicked
-         * @param position The position of the view in the list
-         * @param id The row id of the item that was clicked
-         *
-         * @return true if the callback consumed the long click, false otherwise
-         */
-        boolean onItemLongClick(StaggeredGridView parent, View view, int position, long id);
     }
     
     /**
