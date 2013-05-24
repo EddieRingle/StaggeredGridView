@@ -1300,6 +1300,12 @@ public class StaggeredGridView extends AdapterView<ListAdapter> {
         	if (top < highestView) {
                 highestView = top;
             }
+            StaggeredGridView.LayoutParams lp = (StaggeredGridView.LayoutParams) child.getLayoutParams();
+            if (lp != null) {
+                if (lp.span > 1) {
+                    i += lp.span - 1;
+                }
+            }
         }
         
         return gridTop - highestView;
