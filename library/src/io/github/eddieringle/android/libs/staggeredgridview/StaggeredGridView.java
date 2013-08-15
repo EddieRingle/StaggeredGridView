@@ -2107,7 +2107,13 @@ public class StaggeredGridView extends AdapterView<ListAdapter> {
             super(in);
             firstId = in.readLong();
             position = in.readInt();
+            if (topOffsets == null) {
+                topOffsets = in.createIntArray();
+            }
             in.readIntArray(topOffsets);
+            if (mapping == null) {
+                mapping = new ArrayList<ColMap>();
+            }
             in.readTypedList(mapping, ColMap.CREATOR);
             
         }
