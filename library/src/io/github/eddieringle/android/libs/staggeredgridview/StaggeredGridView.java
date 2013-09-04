@@ -2214,7 +2214,11 @@ public class StaggeredGridView extends AdapterView<ListAdapter> {
 
     @Override
     public View getSelectedView() {
-        throw new UnsupportedOperationException("Unsupported");
+        if (mItemCount > 0 && mSelectorPosition >= 0) {
+            return getChildAt(mSelectorPosition - mFirstPosition);
+        } else {
+            return null;
+        }
     }
 
     @Override
