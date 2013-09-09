@@ -1,0 +1,37 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5+'
+    }
+}
+
+apply plugin: 'android-library'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion "18.0.0"
+
+    defaultConfig {
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs          = ['res']
+            resources.srcDirs    = ['src']
+            java.srcDirs         = ['src']
+            manifest.srcFile 'AndroidManifest.xml'
+
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:18.0.+'
+}
